@@ -4,3 +4,5 @@ df = pd.read_csv("https://raw.githubusercontent.com/italia/covid19-opendata-vacc
 print(df.head())
 dfNord = df[df['codice_regione_ISTAT']<=8]
 print(dfNord)
+totale = dfNord['dosi_somministrate'].sum()
+print(totale)
