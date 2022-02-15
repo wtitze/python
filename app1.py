@@ -13,11 +13,15 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 countries = gpd.read_file('/workspace/python/countries.zip')
+cities = gpd.read_file('/workspace/python/cities.zip')
+
+merge = gpd.sjoin(cities, countries, op='within')
+
 countries = countries[countries.name == 'Italy']
 
 @app.route('/', methods=['GET'])
 def hello_world():
-    return render_template('simple.html',  tables=[countries.to_html(classes='data')], titles=countries.columns.values)
+    return render_template('simple.html',  tables=[merge.to_html(classes='data')], titles=merge.columns.values)
 
 @app.route('/matplot', methods=['GET'])
 def plot_data():
